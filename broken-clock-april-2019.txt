@@ -1,0 +1,114 @@
+https://fivethirtyeight.com/features/how-many-times-a-day-is-a-broken-clock-right/
+
+Riddler Express
+From Keith Wynroe, what time is it? Puzzle time!
+
+You purchase a new clock but are dismayed to realize that both of its hands are identical. At first, it seems it’s going to be impossible to tell the time because you don’t know which hand is for the minutes and which is for the hours.
+
+However, you realize you don’t need to know which is which for every time — for example, when it’s 12:30, the minute hand will be exactly on the 6 and the hour hand will be halfway between the 12 and the 1. It can’t be the other way around because if the hour hand were exactly on 6, the minute hand would have to exactly on 12, which it’s not. So you know what time it is.
+
+How many times during the day will you not be able to tell the time?
+
+****
+
+The clock has no knowledge of AM/PM, so we can treat one 12-hour block as being the whole of the problem. There is no way the answer could be different for AM vs. for PM. At the end, we'll just multiply by 2 to get the answer for the whole day.
+
+The idea will be to let $t$ be the number of minutes that have passed, compute the positions of the minute hand $m(t)$ and hour hand $h(t)$, and check how often those positions obey a certain proportionality relationship. The proportionality relationship is that the minute hand must be just as far from the next lowest number as the hour hand is from its next lowest number.
+
+We'll measure time in minutes, since that's the smallest unit we care about.
+
+Let $t$ be the number of minutes that have passed since the two hands were aligned (midnight or noon). $t$ is a real number in $[0, 720)$.
+
+The function $m(t)$ tells us where the minute hand will be pointing, as an real number in $[0, 60)$:
+$$m(t) = t % 60$$
+
+The function $h(t)$ tells us where the hour hand will be pointing, as real number in $[0, 60)$:
+$$h(t) = \frac{t}{12}$$
+
+Now the proportionality relationship that must hold, in order for both interpretations of the clock position to yield valid times.
+
+$$\frac{m(t)}{5}} % 5 = \frac{h(t)}{5}} % 5$$
+
+or
+
+$$\frac{m(t)}{5} \equiv \frac{h(t)}{5} \pmod{5}$$
+
+Substituting in, we get
+
+$$\frac{t % 60}{5} \equiv \frac{t}{60} \pmod{5}$$
+
+I'd be surprised if the answer for the hour of two o'clock were different from, say, the hour of six o'clock. So let's just work for $t$ in $[0, 60)$ (the hour of twelve o'clock) and in the end multiply by twelve.
+
+$$\frac{t}{5} \equiv \frac{t}{60} \pmod{5}$$
+
+****
+
+OK, that didn't work. But here's what did.
+
+The answer is "Twice per day, when exactly 180/11 ~= 16.36 minutes have passed since either midnight or noon. So that's at (approximately) 12:16am and 12:16pm. These two times are when the line formed by the two hands is perfectly straight."
+
+I had a lot of false starts, but here is what I think is the shortest path someone could take to the answer.
+
+First, let's work only within a 12-hour block. There's no way the answer could be different between AM and PM, so at the end we'll just multiply by 2.
+
+Now observe that in order for us not to be able to tell the time, we need the hour hand to be just as far along in its journey from the previous number to the next number as the minute hand is in its journey. Another way of saying this: we want the angle between the hour hand and its previous number to be equal to the angle between the minute hand and its previous number.
+
+Draw a picture to convince yourself that 
+
+****
+
+OK, that didn't work either. I was solving a different problem -- "how many times per day are the clock hands perfectly straight"?
+
+Below is what I sent to FiveThirtyEight.
+
+I had a lot of false starts, but here is what I think is the shortest path someone could take to the answer.
+
+Observe that, in order for us not to be able to tell the time, the angle between the minute hand a_m and the next lowest number must be equal to the angle a_h between the hour hand and its next lowest number.
+
+Observe that we can work within just one twelve-hour block -- the clock repeats its state every twelve hours, so the answer could not possibly be different for AM or PM. At the end, we'll multiply our answer by two to get the value for two twelve-hour blocks -- i.e. one day.
+
+Let t be the number of minutes since the hands were last aligned. (Midnight or noon.) View both a_m(t) and a_h(t) as functions of t. Note that 1) the period of a_h is 60 minutes (the angle becomes zero again once we get to a new number), and the period of a_m is 5 minutes, for the same reason, and 2) they are otherwise linear functions of t. What we want to know is how often these functions intersect during a twelve-hour block. The number of intersections will be the number of moments in that block where we're not able to tell what time it is (because the angles are equal).
+
+Because the largest period is 60, and because 5 goes evenly into 60, we'll be able to just analyze one period: from thereafter the graph of the functions will look the same, so we'll be able to multiply our answer by twelve to get the answer for the whole twelve-hour block.
+
+The functions take in a number of minutes t and spit out an angle measured in degrees, in [0, 30) as 30 is the maximum you can get from your next lowest number. Specifically, they are:
+
+a_m(t) = 30t mod 30
+a_h(t) = 30t/12
+
+Looking at a graph (https://www.wolframalpha.com/input/?i=plot((30%2F12)t,+30t+mod+30)+from+0+to+12), you can see that the graphs cross 11 times within one period (once per journey of the minute hand to another number). There's a twelfth apparent crossing but it occurs at t = 12, which is not in range of values for t we're graphing -- it just visually hard to distinguish. (12 is the same as 0, so counting this would be double counting.
+
+We say that one of those crossings doesn't count (the first one) because it's the crossing where both have angle zero. We actually can tell the time during this crossing because the time is the same regardless of which one you think is minute, which one you think is hour. (Imagine both hands pointing at 12, or both hands pointing at 3). So there are 10 crossings per hour.
+
+10 crossings per hour * 12 hours = 120 crossings. Multiply by two and you have 240 moments during the day when you'll be unable to tell the time on this clock.
+
+****
+
+OK, that one was wrong too. I was solving a different problem. Here's what I actually sent to FiveThirtyEight.
+
+I had a lot of false starts, but here is what I think is the shortest path someone could take to the answer.
+
+Observe that we can work within just one twelve-hour block -- the clock repeats its state every twelve hours, so the answer could not possibly be different for AM or PM. At the end, we'll multiply our answer by two to get the value for two twelve-hour blocks -- i.e. one day.
+
+Observe that, in order for us not to be able to tell the time, the angle between the minute hand and the vertical axis must be proportional to the angle a_h between the hour hand and its next lowest number. Another way of saying this is that however far along the minute hand is on its journey around the clock, the hour hand must be equally far along on its journey to the next number.
+
+Let's work within one hour, say the hour of 12:00 - 12:59, to start with. Let $t$ be the number of minutes that have passed so far in this hour. Let $p_m(t)$ be how much of the way the minute hand has gotten around the clock, where $0$ is none of the way and $1$ is all of the way. Let $p_h(t)$ be how much of the way the hour hand has gotten around the clock, measured in the same units.
+
+$$p_m = \frac{t}{60}$$
+$$p_h = \frac{t}{720}$$
+
+Where these are equal, you can't tell the time. To generalize to other hours, we just need to give the hour hand a temporary head start, as follows:
+
+$$p_h = \frac{t}{720} + \frac{k}{12}$$
+
+where $k \in \{0, 1, 2, ... 11\}$ depends on what hour we're in.
+
+Setting these equal and solving, we get
+
+$$\frac{11t}{60} = k$$
+
+which is really twelve different equations. You can see that there's one value of $t$ for each value of $k$. For $k = 0$ we have $t = 0$, which corresponds to the state where both hands are pointing straight up. For $k = 1$ we have $t = 60/11 \approx 5.45$, corresponding to one hand pointing a bit beyond 1 and the other pointing a smaller bit beyond 12. This is the pair of times $(12:06, 1:01)$ (values are approximate) which would be indistinguishable.
+
+For $k = 11$ we have $t = 60$. This corresponds again to both hands pointing straight up, so we should discount it in order not to double-count. Actually, we shouldn't count the first instance of both hands straight up as "not being able to tell the time" either, since while there is ambiguity about which hand is the hour hand and which is the minute hand here, that ambiguity doesn't matter: either way it's twelve o'clock.
+
+So we have one value of $t$ for each of the twelve values of $k$, minus two, giving ten moments at which we're not able to tell the time. This is for one twelve-hour block, so double it to get $20$ for the whole day.
