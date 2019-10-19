@@ -1,0 +1,5 @@
+A drunk man stands with a cliff one step to his left. He takes steps randomly left and right. Each step has probability p of going left and probability q=1−p of going right. Each step is the same size.
+
+If allowed to randomly step indefinitely, what is the probability that the drunk falls off the cliff?
+
+In purely mathematical terms, the drunkard starts at x=0 and steps +1 or −1 with each step. If he ever gets to x=−1 he falls off the cliff.
