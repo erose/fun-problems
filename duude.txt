@@ -1,0 +1,1 @@
+N people stand in a circle with their eyes closed. They all simultaneously open their eyes and look at a randomly determined person. If two people make eye contact (A is looking at B and B is looking at A), they say "duuuude". What is the expected number of "duuuude"s ?
